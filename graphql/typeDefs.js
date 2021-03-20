@@ -4,9 +4,11 @@ module.exports = gql`
   # All types
   type User{
     username: String!
-    email: String!
+    email: String
     token:String
     createdAt: String!
+    latestMessage: Message
+    imageUrl: String!
   }
 
   type Message {
