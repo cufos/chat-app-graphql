@@ -1,4 +1,4 @@
-const { User } = require('../../models')
+const { User, Message } = require('../../models')
 const bcrypt = require('bcrypt')
 const { UserInputError, AuthenticationError } = require('apollo-server')
 const jwt = require('jsonwebtoken')
@@ -11,12 +11,29 @@ module.exports = {
       try {
         if (!user) throw new AuthenticationError('Unauthenticated')
 
-        const users = await User.findAll({
+        let users = await User.findAll({
+          attributes: ['username', 'imageUrl', 'createdAt'],
           where: {
             username: {
               [Op.ne]: user.username
             }
           }
+        })
+
+        const allUserMessage = await Message.findAll({
+          where: {
+            [Op.or]: [
+              { from: user.username }, { to: user.username }]
+          },
+          order: [['createdAt', 'DESC']]
+        })
+
+        users = users.map(otherUser => {
+          const latestMessage = allUserMessage.find(message => message.from === otherUser.username || message.to === otherUser.username)
+
+          otherUser.latestMessage = latestMessage
+
+          return otherUser
         })
 
         return users
