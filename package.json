@@ -7,7 +7,11 @@
     "dev": "nodemon index.js",
     "db": "sequelize db:migrate",
     "cancel": "sequelize db:migrate:undo",
-    "message:model": "sequelize model:generate --name Message --attributes content:string,uuid:uuid,from:string,to:string"
+    "cancel:all": "sequelize db:migrate:undo:all",
+    "message:model": "sequelize model:generate --name Message --attributes content:string,uuid:uuid,from:string,to:string",
+    "seed:users": "sequelize seed:generate --name create-users",
+    "seed:messages": "sequelize seed:generate --name create-messages",
+    "populate:seed": "sequelize db:seed:all"
   },
   "keywords": [],
   "author": "",
