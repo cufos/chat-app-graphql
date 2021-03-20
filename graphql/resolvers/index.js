@@ -1,19 +1,16 @@
-const messagesResolvers = require('./messages')
-const usersResolvers = require('./users')
+const userResolvers = require('./users')
+const messageResolvers = require('./messages')
 
 module.exports = {
   Message: {
-    createdAt: parent => parent.createdAt.ToISOString()
-  },
-  User: {
-    createdAt: parent => parent.createdAt.ToISOString()
+    createdAt: (parent) => parent.createdAt.toISOString(),
   },
   Query: {
-    ...usersResolvers.Query,
-    ...messagesResolvers.Query
+    ...userResolvers.Query,
+    ...messageResolvers.Query,
   },
   Mutation: {
-    ...usersResolvers.Mutation,
-    ...messagesResolvers.Mutation
-  }
+    ...userResolvers.Mutation,
+    ...messageResolvers.Mutation,
+  },
 }

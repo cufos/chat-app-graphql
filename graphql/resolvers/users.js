@@ -1,6 +1,6 @@
 const { User, Message } = require('../../models')
 const bcrypt = require('bcrypt')
-const { UserInputError, AuthenticationError } = require('apollo-server')
+const { AuthenticationError, UserInputError } = require('apollo-server')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 const { Op } = require('sequelize')
@@ -13,26 +13,21 @@ module.exports = {
 
         let users = await User.findAll({
           attributes: ['username', 'imageUrl', 'createdAt'],
-          where: {
-            username: {
-              [Op.ne]: user.username
-            }
-          }
+          where: { username: { [Op.ne]: user.username } },
         })
 
-        const allUserMessage = await Message.findAll({
+        const allUserMessages = await Message.findAll({
           where: {
-            [Op.or]: [
-              { from: user.username }, { to: user.username }]
+            [Op.or]: [{ from: user.username }, { to: user.username }],
           },
-          order: [['createdAt', 'DESC']]
+          order: [['createdAt', 'DESC']],
         })
 
-        users = users.map(otherUser => {
-          const latestMessage = allUserMessage.find(message => message.from === otherUser.username || message.to === otherUser.username)
-
+        users = users.map((otherUser) => {
+          const latestMessage = allUserMessages.find(
+            (m) => m.from === otherUser.username || m.to === otherUser.username
+          )
           otherUser.latestMessage = latestMessage
-
           return otherUser
         })
 
@@ -75,7 +70,7 @@ module.exports = {
 
         return {
           ...user.toJSON(),
-          createdAt: user.createdAt.toISOString,
+          createdAt: user.createdAt.toISOString(),
           token
         }
       } catch (err) {

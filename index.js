@@ -2,6 +2,7 @@ const { ApolloServer } = require('apollo-server')
 const { sequelize } = require('./models')
 const resolvers = require('./graphql/resolvers')
 const typeDefs = require('./graphql/typeDefs')
+require('dotenv').config()
 const contextMiddleware = require('./utils/contextMiddleware')
 
 const server = new ApolloServer({
