@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon index.js",
     "db": "sequelize db:migrate",
-    "cancel": "sequelize db:migrate:undo"
+    "cancel": "sequelize db:migrate:undo",
+    "message:model": "sequelize model:generate --name Message --attributes content:string,uuid:uuid,from:string,to:string"
   },
   "keywords": [],
   "author": "",
