@@ -16,7 +16,7 @@ module.exports = {
 
         const messages = await Message.findAll({
           where: {
-            from: { [Op.in]: username },
+            from: { [Op.in]: usernames },
             to: { [Op.in]: usernames }
           },
           order: [['createdAt', 'DESC']]
