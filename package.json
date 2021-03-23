@@ -11,7 +11,8 @@
     "message:model": "sequelize model:generate --name Message --attributes content:string,uuid:uuid,from:string,to:string",
     "seed:users": "sequelize seed:generate --name create-users",
     "seed:messages": "sequelize seed:generate --name create-messages",
-    "populate:seed": "sequelize db:seed:all"
+    "populate:seed": "sequelize db:seed:all",
+    "reaction:generate": "sequelize model:generate --name Reaction --attributes content:string,uuid:uuid"
   },
   "keywords": [],
   "author": "",

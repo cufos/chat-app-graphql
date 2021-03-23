@@ -1,7 +1,7 @@
 'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('messages', {
+    await queryInterface.createTable('reactions', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -15,14 +15,13 @@ module.exports = {
       uuid: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
+      },
+      MessageId: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
-      from: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      to: {
-        type: Sequelize.STRING,
+      userId: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       createdAt: {
@@ -36,6 +35,6 @@ module.exports = {
     })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('messages')
+    await queryInterface.dropTable('reactions')
   },
 }
